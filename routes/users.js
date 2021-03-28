@@ -30,7 +30,10 @@ router.get('/login', (req, res) => {
 //passport code, show flashmessage and redirect to '/login' if login fails
 router.post('/login', passport.authenticate('local', { failureFlash: true, failureRedirect: '/login'}), (req, res) => {
     req.flash('Success', "Weclome Back!");
-    res.redirect('/campgrounds');
+    const redirectUrl = req.session.returnTo || '/campgrounds';
+    //deletes returnTo off the session obkect now that its stored in a variable
+    delete req.session.returnTo;
+    res.redirect(redirectUrl);
 });
 
 router.get('/logout', (req, res) => {
