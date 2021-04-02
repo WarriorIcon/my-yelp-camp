@@ -3,11 +3,11 @@ const express = require('express');
 const router = express.Router({mergeParams: true});
 const Review = require('../models/reviews');
 const Campground = require('../models/campground');
-const {validateReview} = require('../middleware.js');
+const {validateReview, isLoggedIn } = require('../middleware.js');
 const catchAsync = require('../utils/catchAsync.js');
 const ExpressError = require('../utils/ExpressError.js');
 
-router.post('/', validateReview, catchAsync(async(req, res) => {
+router.post('/', isLoggedIn, validateReview, catchAsync(async(req, res) => {
     const campground = await Campground.findById(req.params.id);
     const review = new Review(req.body.review);
     campground.reviews.push(review);
