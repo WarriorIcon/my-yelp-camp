@@ -30,7 +30,12 @@ router.get('/show', (req, res) => {
 //very IMPORTANT that campgrounds/new route must come before this one
 //as this route claims anything that comes after campgrounds/ as n ID route.
 router.get('/:id', catchAsync(async (req, res) => {
-    const campground = await Campground.findById(req.params.id).populate('reviews').populate('author');
+    const campground = await Campground.findById(req.params.id).populate({
+        path: 'reviews',
+        populate: {
+            path: 'author'
+        }
+    }).populate('author');
     console.log(campground);
     if (!campground) {
         req.flash('error', 'Cannot find that campground!');
