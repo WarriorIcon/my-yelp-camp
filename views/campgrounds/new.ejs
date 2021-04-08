@@ -2,7 +2,7 @@
 <div class="row">
     <h1 class="text-center">New Campground</h1>
     <div class="col-6 offset-3">
-        <form action="/campgrounds" method= "POST" novalidate class="needs-validation">
+        <form action="/campgrounds" method= "POST" novalidate class="needs-validation" enctype="multipart/form-data"> <!-- <-- required for uploading anything through a form -->
             <div class="mb-3">
                 <label for="title" class="form-label">Title</label>
                 <input type="text" class="form-control" id ="title" name="campground[title]" required> <!-- whats this do?-->
@@ -11,17 +11,19 @@
             </div>
             <div class="mb-3">
                 <label for="location" class="form-label">Location</label>
-                <input type="text" class="form-control" id ="location" name="campground[location]" required> <!-- //whats this do?-->
+                <input type="text" class="form-control" id ="location" name="campground[location]" required> 
                 <div class="valid-feedback">Sounds like a cool place!</div>
                 <div class="invalid-feedback">Please enter a location!</div>
             </div>
-            
             <div class="mb-3">
+                <input type="file" name= "image" id ="" multiple>
+            </div>
+            <!-- <div class="mb-3">
                 <label for="image" class="form-label">Image URL</label>
-                <input type="text" class="form-control" id ="image" name="campground[image]" required> <!-- //whats this do?-->
+                <input type="text" class="form-control" id ="image" name="campground[image]" required> 
                 <div class="valid-feedback">Lookin' good!</div>
                 <div class="invalid-feedback">Upload an image of the campground!</div>
-            </div>
+            </div> -->
 
             <div class="mb-3">
                 <label for="price-label" class="form-label">Campground Price</label>

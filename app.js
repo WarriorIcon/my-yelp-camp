@@ -1,3 +1,9 @@
+if (process.env.NODE_ENV !== "production") {
+    require('dotenv').config();
+}
+
+console.log(process.env.SECRET)
+
 const express = require("express");
 //According to node docs, "The path module provides 
 //utilities for working with file and directory paths. 
