@@ -8,6 +8,8 @@ const {validateReview, isLoggedIn, isReviewAuthor } = require('../middleware.js'
 const catchAsync = require('../utils/catchAsync.js');
 const ExpressError = require('../utils/ExpressError.js');
 
+// requests go to /campgrounds/:id/reviews through express router
+
 router.post('/', isLoggedIn, validateReview, catchAsync(reviews.createReview));
 
 router.delete('/:reviewId', isLoggedIn, isReviewAuthor, catchAsync(reviews.deleteReview));
