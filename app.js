@@ -38,6 +38,8 @@ db.once("open", () => {
     console.log("DATABASE CONNECTED BRO!");
 });
 
+mongoose.set('useFindAndModify', false);
+
 const app = express();
 
 //set the directory for all templating engine files (ejs)
