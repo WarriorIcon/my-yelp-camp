@@ -175,9 +175,10 @@ app.use((err, req, res, next) => {
     res.status(statusCode).render('error.ejs', {err});
 });
 
+const port = process.env.PORT || 3000;
 // starts server at localhost:3000
 app.listen(3000, () => {
-    console.log('Serving on port 3000!');
+    console.log(`Serving on port ${port}!`);
 });
 
 //allows you to view on other LAN computers and mobile
