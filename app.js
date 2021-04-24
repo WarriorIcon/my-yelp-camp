@@ -14,6 +14,7 @@ const ejsMate = require('ejs-mate');
 const ExpressError = require('./utils/ExpressError.js');
 const methodOverride = require('method-override');
 const session = require('express-session');
+const MongoStore = require('connect-mongo');
 const flash = require('connect-flash');
 const passport = require('passport');
 const LocalStrategy = require('passport-local');
@@ -24,11 +25,12 @@ const userRoutes = require('./routes/users.js')
 const campgroundRoutes = require('./routes/campgrounds.js');
 const reviewRoutes = require('./routes/reviews.js');
 
-const mongoSanitize = require('express-mongo-sanitize');
 
+const mongoSanitize = require('express-mongo-sanitize');
+const dbUrl = process.env.DB_URL || 'mongodb://localhost:27017/yelp-camp';
 //I believe 27017 is the default mongoose port, followed by 
-//the db name. 
-mongoose.connect('mongodb://localhost:27017/yelp-camp', {
+//the db name. //'mongodb://localhost:27017/yelp-camp'
+mongoose.connect(dbUrl, {
     useNewUrlParser: true,
     useCreateIndex: true,
     useUnifiedTopology: true
@@ -57,9 +59,23 @@ app.use(methodOverride('_method'));
 
 app.use(mongoSanitize())
 
+const secret = process.env.SECRET;
+
+const store = MongoStore.create({
+    mongoUrl: dbUrl,
+    touchAfter: 24 * 60 * 60,
+    crypto: {
+        secret
+    }
+});
+store.on("error", function (e) {
+    console.log("Mongo Session Store error!", e)
+})
+
 const sessionConfig = {
+    store,
     name: 'session',
-    secret: 'thisshouldbeabettersecret!',
+    secret,
     resave: false,
     saveUninitialized: true,
     cookie: {
