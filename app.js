@@ -59,7 +59,7 @@ app.use(methodOverride('_method'));
 
 app.use(mongoSanitize())
 
-const secret = process.env.SECRET;
+const secret = process.env.SECRET || 'adarksecret';
 
 const store = MongoStore.create({
     mongoUrl: dbUrl,
@@ -178,7 +178,8 @@ app.use((err, req, res, next) => {
 const port = process.env.PORT || 3000;
 // starts server at localhost:3000
 app.listen(3000, () => {
-    console.log(`Serving on port ${port}!`);
+    console.log(`Serving on port ${port}!`
+    );
 });
 
 //allows you to view on other LAN computers and mobile
