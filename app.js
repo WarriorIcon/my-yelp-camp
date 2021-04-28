@@ -89,8 +89,10 @@ const sessionConfig = {
 //flash stuff needs to come before routes. 
 app.use(session(sessionConfig));
 app.use(flash());
+
 //setting our Content Security Policy with helmet!
 app.use(helmet());
+//prevents xss attack
 
 const scriptSrcUrls = [
     "https://stackpath.bootstrapcdn.com/",
